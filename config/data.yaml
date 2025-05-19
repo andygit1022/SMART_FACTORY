@@ -1,0 +1,42 @@
+data:
+  raw_path: "data/train.csv"      # 5 초 원본 센서 로그
+  test_path: "data/test.csv"      # 제출용 구간(레이블 없음)
+
+  # ───────────────────────────────────────────────────────────────
+  #  리샘플 단계
+  #  5  s  ─►  n  min  ─►  60 min(= 1 h)
+  #           └───┬───┘
+  #               └─  n_min 값으로 지정
+  # ───────────────────────────────────────────────────────────────
+  n_min: 5                       # 5 s 를 몇 분 단위로 첫 집계할지 (ex 1·2·5)
+
+  # win_nmin:  n min 시퀀스 길이 (= Transformer 인코더 길이)
+  #            예: n_min=5, win_nmin=12  →  1 h 구간 (12×5 min) 이 한 샘플
+  win_nmin: 12
+
+  # enc_len_hours:  과거를 몇 시간 입력으로 사용할지 (모델 인코더 창)
+  # pred_len_hours: 미래를 몇 시간 예측할지 (제출 요구 = 672 h 고정)
+  enc_len_hours: 168             # 7 일
+  pred_len_hours: 672            # 28 일 (대회 규격)
+
+  # 누적 전력량(accumActiveEnergy) 차분을 쓸지 여부
+  use_delta_5s: true             # 5 s 단 차분
+  use_delta_nmin: true           # n min 단 차분
+
+  # ── 컬럼별 스케일러 정의 ───────────────────────────────────────
+  scaler:
+    voltageR: minmax
+    voltageS: minmax
+    voltageT: minmax
+    voltageRS: standard
+    voltageST: standard
+    voltageTR: standard
+    currentR: minmax
+    currentS: minmax
+    currentT: minmax
+    activePower: none
+    powerFactorR: minmax
+    powerFactorS: minmax
+    powerFactorT: minmax
+    reactivePowerLagging: log1p_standard   # log1p 변환 후 standard
+    accumActiveEnergy: diff_standard       # 차분 후 standard

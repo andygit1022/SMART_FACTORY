@@ -1,0 +1,7 @@
+# config/log.yaml
+log:
+  tensorboard: true
+  wandb: false
+  plot_metrics: [MAE, RMSE, SMAPE]
+  fig_dir: results/figures
+  ckpt_dir: results/checkpoints

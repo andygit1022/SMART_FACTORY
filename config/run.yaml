@@ -1,0 +1,16 @@
+run:
+  seed: 42
+  device: cuda
+  epochs: 3                # demo
+  batch_size: 16
+  lr: 1.0e-3
+  loss_fn: MAE
+
+  # Stage 모델
+  high_model: transformer      # high_freq/*
+  mid_model:  convlstm         # mid_freq/*
+  low_model:  informer         # low_freq/*
+
+  early_stop_patience: 3
+  log_every_n_steps: 20
+  save_dir: results

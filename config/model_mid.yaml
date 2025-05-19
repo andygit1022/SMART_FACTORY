@@ -1,0 +1,12 @@
+model_mid:
+  convlstm:
+    cnn_filters: [64, 64]
+    cnn_kernel: 3
+    lstm_hidden: 128
+    lstm_layers: 2
+    dropout: 0.1
+
+  gru:
+    hidden: 128
+    layers: 2
+    dropout: 0.1
